@@ -4,3 +4,26 @@
 
 [build.environment]
   CI = "false"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # 1. X-Frame-Options (only here, not in <meta>)
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection       = "1; mode=block"
+
+    # 2. A CSP that allows:
+    #    • your own JS/CSS (‘self’),
+    #    • Google Fonts CSS,
+    #    • base64-encoded fonts (data:), 
+    #    • and inline <style> (needed by styled-components)
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src  'self';
+      connect-src 'self';
+      img-src     'self' data:;
+      font-src    https://fonts.gstatic.com data:;
+      style-src   'self' https://fonts.googleapis.com 'unsafe-inline';
+      frame-ancestors 'none';
+    """
