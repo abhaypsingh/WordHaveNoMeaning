@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ProgressBarContainer = styled.div`
   width: 100%;
@@ -66,3 +67,9 @@ const ProgressBar = ({ current, total, label, showText = true }) => {
 };
 
 export default ProgressBar;
+ProgressBar.propTypes = {
+  current:  PropTypes.number.isRequired,
+  total:    PropTypes.number.isRequired,
+  label:    PropTypes.string,
+  showText: PropTypes.bool,
+};

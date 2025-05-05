@@ -178,7 +178,7 @@ const GameplayScreen = () => {
       const randomIndex = Math.floor(Math.random() * currentRound.options.length);
       handleOptionSelect(randomIndex);
     }
-  }, [timeRemaining, currentRound, selectedOption]);
+  }, [timeRemaining, currentRound, selectedOption,useEffect]);
   
   // Clean up timer on unmount
   useEffect(() => {
@@ -187,7 +187,7 @@ const GameplayScreen = () => {
         clearInterval(timerInterval);
       }
     };
-  }, [timerInterval]);
+  }, [timerInterval,useEffect]);
   
   // Handle option selection
   const handleOptionSelect = useCallback((optionIndex) => {

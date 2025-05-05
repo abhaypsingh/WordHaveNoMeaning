@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { playButtonClick } from '../../services/soundService';
+import PropTypes from 'prop-types';
+
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -119,3 +121,9 @@ const Header = ({ title, showBackButton = false, showSettings = false, onSetting
 };
 
 export default Header;
+Header.propTypes = {
+  title:            PropTypes.string.isRequired,
+  showBackButton:   PropTypes.bool,
+  showSettings:     PropTypes.bool,
+  onSettingsClick:  PropTypes.func,
+};

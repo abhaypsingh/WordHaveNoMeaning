@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { playButtonClick } from '../../services/soundService';
+import PropTypes from 'prop-types';
 
 
 
@@ -169,3 +170,14 @@ const Button = ({
 export { BUTTON_TYPES, BUTTON_SIZES };
 
 export default Button;
+
+Button.propTypes = {
+  text:      PropTypes.string.isRequired,
+  type:      PropTypes.oneOf(['button','submit','reset']),
+  size:      PropTypes.oneOf(['small','medium','large']),
+  onClick:   PropTypes.func,
+  disabled:  PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  ariaLabel: PropTypes.string,
+  children:  PropTypes.node,
+};
