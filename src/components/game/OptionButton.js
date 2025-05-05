@@ -128,19 +128,16 @@ const OptionButton = ({
   onClick 
 }) => {
   const handleClick = () => {
-    console.log("OptionButton handleClick called, disabled:", disabled, "selected:", selected);
+  
     if (!disabled && !selected) {
-      console.log("OptionButton not disabled and not selected, playing sound and calling onClick");
+      
       playOptionSelect();
       if (onClick) {
         onClick();
       }
-    } else {
-      console.log("OptionButton is disabled or already selected, not calling onClick");
-    }
+    } 
   };
-  
-  console.log("OptionButton render - props:", { text, index, selected, disabled, correct, incorrect });
+
   
   return (
     <Container

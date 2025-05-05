@@ -438,10 +438,10 @@ export const clearAllData = () => {
 export const initializeStorageService = () => {
   try {
     // Run storage management
-    const result = manageStorage();
+     manageStorage();
     
     // Log storage status
-    console.log('Storage initialized:', result);
+   
     
     return true;
   } catch (error) {

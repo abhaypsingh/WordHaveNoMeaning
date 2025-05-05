@@ -188,7 +188,7 @@ export const getContradictionSentence = async (gameSession) => {
     
     // Check if contradictionMeaning has contradictionSentences
     if (!contradictionMeaning || !contradictionMeaning.contradictionSentences || contradictionMeaning.contradictionSentences.length === 0) {
-      console.log("No contradiction sentences found, using fallback");
+      
       // Fallback: create a generic contradiction sentence
       const word = currentRound.word.text;
       const fallbackSentence = `This is an example where "${word}" means "${contradictionMeaning.definition}".`;

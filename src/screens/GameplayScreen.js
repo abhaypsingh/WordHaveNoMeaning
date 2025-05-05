@@ -81,9 +81,7 @@ const GameplayScreen = () => {
   const [contradictionData, setContradictionData] = useState(null);
   const [timerInterval, setTimerInterval] = useState(null);
   
-  // Debug logging
-  console.log("GameplayScreen render - selectedOption:", selectedOption);
-  console.log("GameplayScreen render - showContradiction:", showContradiction);
+
   
   // Reference to track if component is mounted
   const isMounted = useRef(true);
@@ -193,57 +191,49 @@ const GameplayScreen = () => {
   
   // Handle option selection
   const handleOptionSelect = useCallback((optionIndex) => {
-    console.log("handleOptionSelect called with optionIndex:", optionIndex);
-    console.log("Current state:", {
-      currentRound: currentRound ? {
-        roundNumber: currentRound.roundNumber,
-        completed: currentRound.completed
-      } : null,
-      selectedOption,
-      timeRemaining
-    });
+    
     
     if (currentRound && !currentRound.completed && selectedOption === null) {
-      console.log("Conditions met for option selection");
+      
       
       // Stop timer
       if (timerInterval) {
         clearInterval(timerInterval);
-        console.log("Timer stopped");
+      
       }
       
       // Set selected option
       setSelectedOption(optionIndex);
-      console.log("Selected option set to:", optionIndex);
+     
       
       // Process selection
       const timeSpent = gameSession.settings.timeLimit > 0
         ? gameSession.settings.timeLimit - timeRemaining
         : 0;
       
-      console.log("Dispatching processUserSelection with:", { optionIndex, timeSpent });
+      
       dispatch(processUserSelection({ optionIndex, timeSpent }));
       
       // Play sound based on correctness
       const selectedOptionData = currentRound.options[optionIndex];
       if (selectedOptionData.isCorrect) {
-        console.log("Correct answer selected");
+        
         playCorrectAnswer();
       } else {
-        console.log("Incorrect answer selected");
+        
         playIncorrectAnswer();
       }
       
       // Show contradiction after a delay
-      console.log("Setting timeout to show contradiction");
+      
       setTimeout(async () => {
         try {
-          console.log("Timeout fired, getting contradiction data");
+         
           // Get contradiction data
           let data;
           try {
             data = await getContradictionSentence(gameSession);
-            console.log("Contradiction data received:", data);
+         
           } catch (error) {
             console.error('Error getting contradiction data, using fallback:', error);
             // Create fallback data if getContradictionSentence fails
@@ -258,7 +248,7 @@ const GameplayScreen = () => {
           setContradictionData(data);
           
           // Get educational message
-          console.log("Dispatching fetchEducationalMessage");
+          
           try {
             dispatch(fetchEducationalMessage({
               word: currentRound.word,
@@ -270,7 +260,7 @@ const GameplayScreen = () => {
           }
           
           // Show contradiction
-          console.log("Setting showContradiction to true");
+          
           setShowContradiction(true);
           playContradictionReveal();
         } catch (error) {
@@ -285,18 +275,12 @@ const GameplayScreen = () => {
           setShowContradiction(true);
         }
       }, 1000);
-    } else {
-      console.log("Conditions NOT met for option selection:", {
-        currentRoundExists: !!currentRound,
-        roundNotCompleted: currentRound ? !currentRound.completed : false,
-        selectedOptionIsNull: selectedOption === null
-      });
-    }
+    } 
   }, [currentRound, selectedOption, gameSession, timeRemaining, timerInterval, dispatch]);
   
   // Handle next word button
   const handleNextWord = useCallback(() => {
-    console.log("handleNextWord called");
+   
     
     // Reset state
     setSelectedOption(null);
@@ -308,12 +292,12 @@ const GameplayScreen = () => {
     
     // Check if this was the last round
     if (gameSession.currentRound >= gameSession.totalRounds) {
-      console.log("Last round completed, navigating to results");
+      
       // Complete game
       dispatch(completeGame());
       navigate('/results');
     } else {
-      console.log("Starting next round");
+      
       // Start next round
       dispatch(startNextRound());
     }
@@ -419,7 +403,7 @@ const GameplayScreen = () => {
                 <Button
                   text="Next Word"
                   onClick={() => {
-                    console.log("Next Word button clicked");
+                    
                     handleNextWord();
                   }}
                 />

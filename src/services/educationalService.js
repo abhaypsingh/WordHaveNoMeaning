@@ -194,7 +194,7 @@ export const recordConceptExposure = async (conceptId, gameSession) => {
   try {
     // In a real implementation, this would update a database or state
     // For now, we'll just log it
-    console.log(`Concept exposure recorded: ${conceptId}`);
+    
     
     // Add to encountered concepts if not already present
     if (gameSession && gameSession.encounteredConcepts && !gameSession.encounteredConcepts.includes(conceptId)) {

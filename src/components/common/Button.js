@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { playButtonClick } from '../../services/soundService';
 
+
+
 // Button types
 const BUTTON_TYPES = {
   PRIMARY: 'primary',
@@ -138,16 +140,14 @@ const Button = ({
   ...rest
 }) => {
   const handleClick = (e) => {
-    console.log("Button handleClick called, disabled:", disabled);
+    
     if (!disabled) {
-      console.log("Button not disabled, playing sound and calling onClick");
+      
       playButtonClick();
       if (onClick) {
         onClick(e);
       }
-    } else {
-      console.log("Button is disabled, not calling onClick");
-    }
+    } 
   };
   
   return (

@@ -71,11 +71,11 @@ export const startNextRound = createAsyncThunk(
   'game/startNextRound',
   async (_, { getState, rejectWithValue }) => {
     try {
-      console.log("startNextRound thunk called");
+    
       const { game } = getState();
       const { gameSession } = game;
       
-      console.log("Current gameSession state:", gameSession);
+      
       
       if (!gameSession) {
         console.error("No active game session");
@@ -88,7 +88,7 @@ export const startNextRound = createAsyncThunk(
       }
       
       const nextRound = gameSession.currentRound + 1;
-      console.log("Starting next round:", nextRound);
+      
       return nextRound;
     } catch (error) {
       console.error("Error in startNextRound:", error);
@@ -101,11 +101,11 @@ export const processUserSelection = createAsyncThunk(
   'game/processUserSelection',
   async ({ optionIndex, timeSpent }, { getState, rejectWithValue }) => {
     try {
-      console.log("processUserSelection thunk called with:", { optionIndex, timeSpent });
+
       const { game } = getState();
       const { gameSession } = game;
       
-      console.log("Current gameSession state:", gameSession);
+  
       
       if (!gameSession) {
         console.error("No active game session");
@@ -119,7 +119,7 @@ export const processUserSelection = createAsyncThunk(
         throw new Error('Invalid round');
       }
       
-      console.log("Current round:", currentRound);
+  
       
       const selectedOption = currentRound.options[optionIndex];
       
@@ -128,7 +128,7 @@ export const processUserSelection = createAsyncThunk(
         throw new Error('Invalid option selected');
       }
       
-      console.log("Selected option:", selectedOption);
+     
       
       // Calculate score
       const baseScore = selectedOption.isCorrect ? 100 : 25;
@@ -136,7 +136,7 @@ export const processUserSelection = createAsyncThunk(
       const difficultyMultiplier = getDifficultyMultiplier(gameSession.settings.difficulty);
       
       const score = Math.round(baseScore * timeBonus * difficultyMultiplier);
-      console.log("Calculated score:", score);
+     
       
       return {
         roundIndex: gameSession.currentRound - 1,
@@ -350,10 +350,10 @@ const gameSlice = createSlice({
         state.error = null;
       })
       .addCase(startNextRound.fulfilled, (state, action) => {
-        console.log("startNextRound.fulfilled reducer called with payload:", action.payload);
+       
         if (state.gameSession) {
           state.gameSession.currentRound = action.payload;
-          console.log("Updated gameSession.currentRound to:", action.payload);
+        
         } else {
           console.error("Cannot update currentRound: gameSession is null");
         }
@@ -370,13 +370,13 @@ const gameSlice = createSlice({
         state.error = null;
       })
       .addCase(processUserSelection.fulfilled, (state, action) => {
-        console.log("processUserSelection.fulfilled reducer called with payload:", action.payload);
+     
         if (state.gameSession) {
           const { roundIndex, optionIndex, timeSpent, score } = action.payload;
           const round = state.gameSession.rounds[roundIndex];
           
           if (round) {
-            console.log("Updating round state:", roundIndex);
+          
             round.selectedOption = optionIndex;
             round.timeSpent = timeSpent;
             round.score = score;
@@ -384,7 +384,7 @@ const gameSlice = createSlice({
             
             // Update total score
             state.gameSession.score += score;
-            console.log("Updated round state:", round);
+            
           } else {
             console.error("Cannot update round: round is null");
           }
